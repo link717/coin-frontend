@@ -1,6 +1,7 @@
 import React from "react";
 
-function Detail() {
+function Detail({ match }) {
+  console.log(match.params.id);
   return <div></div>;
 }
 
