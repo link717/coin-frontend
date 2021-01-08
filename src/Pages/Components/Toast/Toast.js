@@ -1,19 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import { themes } from "../../../Styles/theme";
 
 function Toast({ openToast }) {
   return (
-    <ToastContainer openToast={openToast}>
-      <p>북마크가 해제되었습니다.</p>
-    </ToastContainer>
+    <>
+      {openToast === "checked" && (
+        <ToastContainer openToast={openToast}>
+          <p>북마크가 설정되었습니다.</p>
+        </ToastContainer>
+      )}
+      {openToast === "unchecked" && (
+        <ToastContainer openToast={openToast}>
+          <p>북마크가 해제되었습니다.</p>
+        </ToastContainer>
+      )}
+    </>
   );
 }
 
 export default Toast;
 
 const ToastContainer = styled.div`
-  display: ${(props) => (props.openToast ? "block" : "none")};
+  display: "block";
   position: absolute;
   top: 40px;
   z-index: 10;
@@ -25,6 +33,8 @@ const ToastContainer = styled.div`
     border-radius: 5px;
     ${({ theme }) => theme.shadow};
     color: ${({ theme }) => theme.white};
+    font-size: 14px;
+    white-space: nowrap;
   }
 
   @keyframes toast {

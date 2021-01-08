@@ -17,7 +17,10 @@ const LoadingContainer = styled.div`
   ${({ theme }) => theme.flex("center", "center", null)};
   position: absolute;
   top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
+  z-index: 100;
 
   span {
     display: inline-block;
