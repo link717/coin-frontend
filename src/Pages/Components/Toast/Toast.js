@@ -1,7 +1,7 @@
 import React from "react";
 
-function CoinInfo() {
+function Toast() {
   return <div></div>;
 }
 
-export default CoinInfo;
+export default Toast;
