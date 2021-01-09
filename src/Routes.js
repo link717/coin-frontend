@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import Nav from "./Pages/Components/Nav/Nav";
 import Main from "./Pages/Main/Main";
 import BookMark from "./Pages/Bookmark/Bookmark";

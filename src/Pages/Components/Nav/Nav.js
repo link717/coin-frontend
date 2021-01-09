@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { setPage } from "../../../store/modules/CheckPage";
 
 function Title() {
   const [selectedId, setSelectedId] = useState(0);
   const history = useHistory();
+  const dispatch = useDispatch();
   const goToPages = (path, id) => {
     setSelectedId(id);
+    dispatch(setPage(1));
     history.push(path);
   };
 
@@ -49,8 +53,7 @@ const Button = styled.button`
     props.selectedId
       ? ({ theme }) => theme.white
       : ({ theme }) => theme.mainGrey};
-  box-shadow: ${(props) =>
-    props.selectedId ? "rgba(0, 0, 0, 0.24) 0px 3px 8px" : "none"};
+  ${(props) => (props.selectedId ? ({ theme }) => theme.shadow : "none")};
   color: ${(props) =>
     props.selectedId
       ? ({ theme }) => theme.black

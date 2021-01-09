@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Title from "./Components/Title/Title";
-import CoinInfo from "./Components/CoinInfo/CoinInfo";
+import Title from "./Components/TableColumn/TableColumn";
+import CoinInfo from "./Components/TableRow/TableRow";
 
 function CoinTable({ coinDatas }) {
-  const currency =
+  const format =
     useSelector((store) => store.setCurrencyRedeucer) === "krw" ? "\\" : "$";
 
   return (
@@ -15,7 +15,7 @@ function CoinTable({ coinDatas }) {
       </thead>
       <tbody>
         {coinDatas?.map((data) => (
-          <CoinInfo data={data} currencyUnit={currency} />
+          <CoinInfo key={data.id} data={data} format={format} />
         ))}
       </tbody>
     </CoinTableContainer>
@@ -25,16 +25,5 @@ function CoinTable({ coinDatas }) {
 export default CoinTable;
 
 const CoinTableContainer = styled.table`
-  width: 100%;
-  table-layout: fixed;
-
-  thead {
-    background-color: ${({ theme }) => theme.lightGrey};
-
-    th {
-      padding: 5px 15px;
-      color: ${({ theme }) => theme.deepGrey};
-      font-size: 14px;
-    }
-  }
+  ${({ theme }) => theme.tableStyle};
 `;

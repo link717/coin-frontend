@@ -11,4 +11,4 @@ export default function setCountRedeucer(state = INITIAL_STATE, action) {
   }
 }
 
-const INITIAL_STATE = 50;
+const INITIAL_STATE = "50";
