@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addBookmark,
   deleteBookmark,
@@ -21,7 +21,13 @@ function CoinInfo({ data, currencyUnit }) {
     total_volume,
   } = data;
 
-  const [isMarked, setIsMarked] = useState(false);
+  const bookmarkedCoins = useSelector((store) => store.setBookmarkDataRedeucer);
+
+  const isBookmarked = bookmarkedCoins.some((coin) => coin.id === id);
+  const isPositive_1h = change_1h > 0 ? true : false;
+  const isPositive_24h = change_24h > 0 ? true : false;
+  const isPositive_7d = change_7d > 0 ? true : false;
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -29,19 +35,29 @@ function CoinInfo({ data, currencyUnit }) {
     history.push(`/${id}`);
   };
 
-  const handleBookmark = () => {
-    console.log(isMarked);
-    console.log(data);
-    setIsMarked(!isMarked);
+  const filterBookmark = (id) => {
+    const coins = bookmarkedCoins.filter((coin) => {
+      return coin.id !== id;
+    });
+    dispatch(deleteBookmark(coins));
+  };
 
-    isMarked && dispatch(addBookmark(data));
+  const handleBookmark = () => {
+    if (!isBookmarked) {
+      dispatch(addBookmark(data));
+    } else {
+      filterBookmark(id);
+    }
   };
 
   return (
     <CoinInfoContainer>
       <td>
         <div>
-          <Bookmark isMarked={isMarked} onClick={handleBookmark}></Bookmark>
+          <Bookmark
+            onClick={() => handleBookmark()}
+            bookmarked={isBookmarked}
+          ></Bookmark>
           <span>{market_cap_rank}</span>
         </div>
       </td>
@@ -53,15 +69,11 @@ function CoinInfo({ data, currencyUnit }) {
         {currencyUnit}
         {current_price?.toLocaleString()}
       </td>
-      <Percentage positive={change_1h > 0 ? true : false}>
-        {change_1h?.toFixed(2)}%
-      </Percentage>
-      <Percentage positive={change_24h > 0 ? true : false}>
+      <Percentage positive={isPositive_1h}>{change_1h?.toFixed(2)}%</Percentage>
+      <Percentage positive={isPositive_24h}>
         {change_24h?.toFixed(2)}%
       </Percentage>
-      <Percentage positive={change_7d > 0 ? true : false}>
-        {change_7d?.toFixed(2)}%
-      </Percentage>
+      <Percentage positive={isPositive_7d}>{change_7d?.toFixed(2)}%</Percentage>
       <td colspan="2">
         {currencyUnit}
         {total_volume?.toLocaleString()}
@@ -107,8 +119,9 @@ const CoinInfoContainer = styled.tr`
 
 const Bookmark = styled.button`
   ::before {
+    padding: 5px;
     color: ${(props) =>
-      props.isMarked
+      props.bookmarked
         ? ({ theme }) => theme.bookmark
         : ({ theme }) => theme.mainGrey};
 

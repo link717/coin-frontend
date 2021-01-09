@@ -7,7 +7,7 @@ import { setCurrency } from "../../../../store/modules/CheckCurrency";
 import { setCount } from "../../../../store/modules/CheckCount";
 import { setPage } from "../../../../store/modules/CheckPage";
 
-function SelectBox({ currency, count }) {
+function SelectBox({ view, currency, count }) {
   const dispatch = useDispatch();
 
   const handleOptions = (e) => {
@@ -34,7 +34,13 @@ function SelectBox({ currency, count }) {
             <option
               key={idx}
               value={subCategory.type}
-              selected={count === subCategory.type ? true : false}
+              selected={
+                view === subCategory.type ||
+                currency === subCategory.type ||
+                count === subCategory.type
+                  ? true
+                  : false
+              }
             >
               {subCategory.name}
             </option>
