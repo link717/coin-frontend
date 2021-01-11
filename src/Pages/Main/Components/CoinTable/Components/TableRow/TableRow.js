@@ -8,7 +8,7 @@ import {
   deleteBookmark,
 } from "../../../../../../store/modules/CheckBookmark";
 
-function CoinInfo({ data, format }) {
+function TableRow({ data, format }) {
   const {
     id,
     market_cap_rank: rank,
@@ -23,10 +23,10 @@ function CoinInfo({ data, format }) {
 
   const bookmarkedCoins = useSelector((store) => store.setBookmarkDataRedeucer);
   const isBookmarked = bookmarkedCoins.some((coin) => coin.id === id);
-  const [openToast, setOpenToast] = useState(false);
-  const isPositive1h = Number(change1h) > 0 ? true : false;
-  const isPositive24h = Number(change24h) > 0 ? true : false;
-  const isPositive7d = Number(change7d) > 0 ? true : false;
+  const [openToast, setOpenToast] = useState("defalut");
+  const isPositive1h = Number(change1h) >= 0 ? true : false;
+  const isPositive24h = Number(change24h) >= 0 ? true : false;
+  const isPositive7d = Number(change7d) >= 0 ? true : false;
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -37,69 +37,75 @@ function CoinInfo({ data, format }) {
 
   const filterBookmark = (id) => {
     const coins = bookmarkedCoins.filter((coin) => coin.id !== id);
-    setTimeout(() => {
-      dispatch(deleteBookmark(coins));
-    }, 600);
+    dispatch(deleteBookmark(coins));
   };
 
   const handleBookmark = () => {
     if (!isBookmarked) {
+      setOpenToast("checked");
       dispatch(addBookmark(data));
+      setTimeout(() => {
+        setOpenToast("defalut");
+      }, 600);
     } else {
-      setOpenToast(true);
+      setOpenToast("unchecked");
       filterBookmark(id);
       setTimeout(() => {
-        setOpenToast(false);
+        setOpenToast("default");
       }, 600);
     }
   };
 
   return (
-    <CoinInfoContainer>
-      <td>
-        <div>
-          <Bookmark
-            onClick={() => handleBookmark()}
-            bookmarked={isBookmarked}
-          ></Bookmark>
-          <span>{Number(rank)}</span>
-        </div>
-      </td>
-      <td>
-        <button onClick={() => goToDetail(id)}>{name}</button>
-        <Toast openToast={openToast} />
-      </td>
-      <td>{symbol?.toUpperCase()}</td>
-      <td>
-        {format}
-        {Number(currentPrice).toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </td>
-      <Percentage positive={isPositive1h}>
-        {Number(change1h)?.toFixed(2)}%
-      </Percentage>
-      <Percentage positive={isPositive24h}>
-        {Number(change24h)?.toFixed(2)}%
-      </Percentage>
-      <Percentage positive={isPositive7d}>
-        {Number(change7d)?.toFixed(2)}%
-      </Percentage>
-      <td colspan="2">
-        {format}
-        {Number(totalVolume).toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </td>
-    </CoinInfoContainer>
+    <>
+      {data.id && (
+        <TableRowContainer>
+          <td>
+            <div>
+              <Bookmark
+                onClick={() => handleBookmark()}
+                bookmarked={isBookmarked}
+              ></Bookmark>
+              <span>{Number(rank)}</span>
+            </div>
+          </td>
+          <td>
+            <button onClick={() => goToDetail(id)}>{name}</button>
+            <Toast openToast={openToast} />
+          </td>
+          <td>{symbol?.toUpperCase()}</td>
+          <td>
+            {format}
+            {Number(currentPrice).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </td>
+          <Percentage positive={isPositive1h}>
+            {Number(change1h)?.toFixed(2)}%
+          </Percentage>
+          <Percentage positive={isPositive24h}>
+            {Number(change24h)?.toFixed(2)}%
+          </Percentage>
+          <Percentage positive={isPositive7d}>
+            {Number(change7d)?.toFixed(2)}%
+          </Percentage>
+          <td colspan="2">
+            {format}
+            {Number(totalVolume).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </td>
+        </TableRowContainer>
+      )}
+    </>
   );
 }
 
-export default CoinInfo;
+export default TableRow;
 
-const CoinInfoContainer = styled.tr`
+const TableRowContainer = styled.tr`
   height: 50px;
   border-bottom: 1px solid ${({ theme }) => theme.mainGrey};
 

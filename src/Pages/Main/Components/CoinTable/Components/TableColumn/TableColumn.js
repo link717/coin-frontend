@@ -1,6 +1,6 @@
 import React from "react";
 
-function Title() {
+function TableColumn() {
   return (
     <tr>
       {COLUMNS.map((column) => (
@@ -12,7 +12,7 @@ function Title() {
   );
 }
 
-export default Title;
+export default TableColumn;
 
 const COLUMNS = [
   { id: 0, name: "자산", colspan: 3 },

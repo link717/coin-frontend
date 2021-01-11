@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { setPage } from "../../../store/modules/CheckPage";
 
-function Title() {
+function Nav() {
   const [selectedId, setSelectedId] = useState(0);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function Title() {
   );
 }
 
-export default Title;
+export default Nav;
 
 const MENUS = [
   { id: 0, name: "가상자산 시세 목록", path: "/main" },
