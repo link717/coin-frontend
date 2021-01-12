@@ -11,7 +11,7 @@ import setPageRedeucer from "./CheckPage";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [],
+  whitelist: ["setBookmarkDataRedeucer"],
 };
 
 const rootReducer = combineReducers({

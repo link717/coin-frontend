@@ -58,4 +58,8 @@ const SelectBoxContainer = styled.div`
   ${({ theme }) => theme.container};
   margin: 0 auto;
   padding-bottom: 15px;
+
+  select {
+    ${({ theme }) => theme.selectStyle}
+  }
 `;

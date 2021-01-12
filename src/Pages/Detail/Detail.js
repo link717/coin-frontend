@@ -6,10 +6,10 @@ import CoinInfo from "./Components/CoinInfo/CoinInfo";
 import Toast from "../../Pages/Components/Toast/Toast";
 import Loading from "../Components/Loading/Loading";
 import Calculator from "./Components/Calculator/Calculator";
+import Description from "./Components/Description/Description";
 import { addBookmark, deleteBookmark } from "../../store/modules/CheckBookmark";
 import { SERVER_API } from "../../Config/urls";
 import { OPTIONS } from "../Main/Components/SelectBox/selectBoxData";
-import Description from "./Components/Description/Description";
 
 function Detail({ match }) {
   const coinId = match.params.id;
@@ -187,6 +187,10 @@ const HeaderContainer = styled.div`
 
   img {
     margin: 0 4px;
+  }
+
+  select {
+    ${({ theme }) => theme.selectStyle}
   }
 `;
 

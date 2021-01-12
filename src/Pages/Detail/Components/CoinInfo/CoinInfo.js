@@ -10,7 +10,7 @@ function CoinInfo({
   marketCap,
   totalVolume,
 }) {
-  const currencyUnit = currency === "krw" ? "\\" : "$";
+  const currencyUnit = currency === "krw" ? "₩" : "$";
   const isPositiveCurrency =
     Number(percentage24h[`${currency}`]) >= 0 ? true : false;
   const isPositiveBTC = Number(percentage24h["btc"]) >= 0 ? true : false;
@@ -40,7 +40,7 @@ function CoinInfo({
               {currencyUnit}
               {currentPrice[`${currency}`]}
             </big>
-            <small>{currentPrice["btc"]} BTC</small>
+            <small>{currentPrice["btc"].toFixed(8)} BTC</small>
           </div>
           <div>
             <PercentSpan positive={isPositiveCurrency}>
