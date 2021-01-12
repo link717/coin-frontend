@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Title from "./Components/TableColumn/TableColumn";
-import CoinInfo from "./Components/TableRow/TableRow";
+import TableColumn from "./Components/TableColumn/TableColumn";
+import TableRow from "./Components/TableRow/TableRow";
 
 function CoinTable({ coinDatas }) {
   const format =
@@ -11,12 +11,13 @@ function CoinTable({ coinDatas }) {
   return (
     <CoinTableContainer>
       <thead>
-        <Title />
+        <TableColumn />
       </thead>
       <tbody>
-        {coinDatas?.map((data) => (
-          <CoinInfo key={data.id} data={data} format={format} />
-        ))}
+        {coinDatas.length > 0 &&
+          coinDatas.map((data) => (
+            <TableRow key={data.id} data={data} format={format} />
+          ))}
       </tbody>
     </CoinTableContainer>
   );

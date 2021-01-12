@@ -9,7 +9,7 @@ export const themes = {
   `,
 
   container: css`
-    min-width: 750px;
+    min-width: 960px;
     width: 70%;
   `,
 
@@ -34,7 +34,7 @@ export const themes = {
       background-color: ${({ theme }) => theme.lightGrey};
 
       th {
-        padding: 5px 15px;
+        padding: 10px 15px;
         color: ${({ theme }) => theme.deepGrey};
         font-size: 14px;
       }

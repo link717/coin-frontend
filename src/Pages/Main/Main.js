@@ -27,8 +27,8 @@ function Main() {
     const fetchCoinData = async () => {
       try {
         setIsLoading(true);
-        const COIN_API = `${MARKET_API}?vs_currency=${currency}&order=market_cap_desc&per_page=${count}&page=${page}&price_change_percentage=1h%2C24h%2C7d`;
-        const { data } = await axios.get(COIN_API);
+        const coinUrl = `${MARKET_API}?vs_currency=${currency}&order=market_cap_desc&per_page=${count}&page=${page}&price_change_percentage=1h%2C24h%2C7d`;
+        const { data } = await axios.get(coinUrl);
         if (data) {
           setIsLoading(false);
           if (page === 1) {
