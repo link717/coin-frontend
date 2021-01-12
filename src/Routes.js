@@ -10,7 +10,7 @@ function Routes() {
     <Router>
       <Nav />
       <Switch>
-        <Route exact path="/main" component={Main} />
+        <Route exact path="/" component={Main} />
         <Route exact path="/bookmark" component={BookMark} />
         <Route exact path="/detail/:id" component={Detail} />
       </Switch>
