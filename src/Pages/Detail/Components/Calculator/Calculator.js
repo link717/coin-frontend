@@ -7,7 +7,7 @@ function Calculator({ currency, symbol, currentPrice }) {
 
   const checkFraction = (value) => {
     const valueToString = String(value);
-    if (valueToString.includes(".")) {
+    if (valueToString.includes(".") && valueToString.indexOf("e") === -1) {
       return valueToString.substring(valueToString.indexOf(".")).length > 8;
     } else return false;
   };
@@ -64,7 +64,7 @@ function Calculator({ currency, symbol, currentPrice }) {
         <PriceConvertor onInput={handleInputValue}>
           <div>
             <span>{symbol}</span>
-            <input type="number" name="left" value={leftInput} />
+            <input type="number" name="left" min="0" value={leftInput} />
           </div>
           <Arrow></Arrow>
           <div>
@@ -116,6 +116,14 @@ const PriceConvertor = styled.div`
       border: 1px solid ${({ theme }) => theme.mainGrey};
       text-indent: 1em;
       outline: none;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    input[type="number"]:hover,
+    input[type="number"]:focus {
+      -moz-appearance: number-input;
     }
   }
 `;

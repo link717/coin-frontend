@@ -6,7 +6,7 @@ import TableRow from "./Components/TableRow/TableRow";
 
 function CoinTable({ coinDatas }) {
   const format =
-    useSelector((store) => store.setCurrencyRedeucer) === "krw" ? "\\" : "$";
+    useSelector((store) => store.setCurrencyRedeucer) === "krw" ? "₩" : "$";
 
   return (
     <CoinTableContainer>

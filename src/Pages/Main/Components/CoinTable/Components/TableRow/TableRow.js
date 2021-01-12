@@ -9,27 +9,44 @@ import {
 } from "../../../../../../store/modules/CheckBookmark";
 
 function TableRow({ data, format }) {
-  const {
-    id,
-    market_cap_rank: rank,
-    name,
-    symbol,
-    current_price: currentPrice,
-    price_change_percentage_1h_in_currency: change1h,
-    price_change_percentage_24h_in_currency: change24h,
-    price_change_percentage_7d_in_currency: change7d,
-    total_volume: totalVolume,
-  } = data;
-
-  const bookmarkedCoins = useSelector((store) => store.setBookmarkDataRedeucer);
-  const isBookmarked = bookmarkedCoins.some((coin) => coin.id === id);
-  const [openToast, setOpenToast] = useState("defalut");
-  const isPositive1h = Number(change1h) >= 0 ? true : false;
-  const isPositive24h = Number(change24h) >= 0 ? true : false;
-  const isPositive7d = Number(change7d) >= 0 ? true : false;
-
   const history = useHistory();
   const dispatch = useDispatch();
+  const bookmarkedCoins = useSelector((store) => store.setBookmarkDataRedeucer);
+  const [openToast, setOpenToast] = useState("defalut");
+
+  const handlePriceForm = (price) => {
+    return Number(price).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
+  const handlePercentForm = (percentage) => {
+    return Number(percentage).toFixed(1);
+  };
+
+  const fetchData = {
+    id: data.id,
+    name: data.name,
+    symbol: data.symbol.toUpperCase(),
+    rank: data.market_cap_rank,
+    currentPrice: handlePriceForm(data.current_price),
+    percentage1h: handlePercentForm(
+      data.price_change_percentage_1h_in_currency
+    ),
+    percentage24h: handlePercentForm(
+      data.price_change_percentage_24h_in_currency
+    ),
+    percentage7d: handlePercentForm(
+      data.price_change_percentage_7d_in_currency
+    ),
+    totalVolume: handlePriceForm(data.total_volume),
+  };
+
+  const isBookmarked = bookmarkedCoins.some((coin) => coin.id === fetchData.id);
+  const isPositive1h = Number(fetchData.percentage1h) >= 0 ? true : false;
+  const isPositive24h = Number(fetchData.percentage24h) >= 0 ? true : false;
+  const isPositive7d = Number(fetchData.percentage7d) >= 0 ? true : false;
 
   const goToDetail = (id) => {
     history.push(`detail/${id}`);
@@ -49,7 +66,7 @@ function TableRow({ data, format }) {
       }, 600);
     } else {
       setOpenToast("unchecked");
-      filterBookmark(id);
+      filterBookmark(fetchData.id);
       setTimeout(() => {
         setOpenToast("default");
       }, 600);
@@ -58,7 +75,7 @@ function TableRow({ data, format }) {
 
   return (
     <>
-      {data.id && (
+      {fetchData.id && (
         <TableRowContainer>
           <td>
             <div>
@@ -66,36 +83,32 @@ function TableRow({ data, format }) {
                 onClick={() => handleBookmark()}
                 bookmarked={isBookmarked}
               ></Bookmark>
-              <span>{Number(rank)}</span>
+              <span>{fetchData.rank}</span>
             </div>
           </td>
           <td>
-            <button onClick={() => goToDetail(id)}>{name}</button>
+            <button onClick={() => goToDetail(fetchData.id)}>
+              {fetchData.name}
+            </button>
             <Toast openToast={openToast} />
           </td>
-          <td>{symbol?.toUpperCase()}</td>
+          <td>{fetchData.symbol}</td>
           <td>
             {format}
-            {Number(currentPrice).toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
+            {fetchData.currentPrice}
           </td>
           <Percentage positive={isPositive1h}>
-            {Number(change1h)?.toFixed(2)}%
+            {fetchData.percentage1h}%
           </Percentage>
           <Percentage positive={isPositive24h}>
-            {Number(change24h)?.toFixed(2)}%
+            {fetchData.percentage24h}%
           </Percentage>
           <Percentage positive={isPositive7d}>
-            {Number(change7d)?.toFixed(2)}%
+            {fetchData.percentage7d}%
           </Percentage>
           <td colspan="2">
             {format}
-            {Number(totalVolume).toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
+            {fetchData.totalVolume}
           </td>
         </TableRowContainer>
       )}

@@ -9,7 +9,7 @@ import { setPage } from "../../store/modules/CheckPage";
 import { setCoinData } from "../../store/modules/CheckCoinData";
 import { MARKET_API } from "../../Config/urls";
 
-function Main() {
+function Main({ location, params, history }) {
   const view = useSelector((store) => store.setViewRedeucer);
   const currency = useSelector((store) => store.setCurrencyRedeucer);
   const count = useSelector((store) => store.setCountRedeucer);
