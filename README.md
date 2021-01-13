@@ -15,7 +15,7 @@
 #### Library
 
 - 전역 상태 관리 목적: React-redux, Redux-persist
-- 동적 스타일링 적용 목적: styled-component (class Name 최소화)
+- 동적 스타일링 적용 목적: styled-component
 - 비동기 처리 목적: axios
 
 ### 구현 기능
