@@ -32,7 +32,7 @@ function Nav() {
 export default Nav;
 
 const MENUS = [
-  { id: 0, name: "가상자산 시세 목록", path: "/main" },
+  { id: 0, name: "가상자산 시세 목록", path: "/" },
   {
     id: 1,
     name: "북마크 목록",
