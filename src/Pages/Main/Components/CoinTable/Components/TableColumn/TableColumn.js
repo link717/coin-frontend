@@ -3,8 +3,8 @@ import React from "react";
 function TableColumn() {
   return (
     <tr>
-      {COLUMNS.map((column) => (
-        <th scope="col" colspan={column.colspan}>
+      {COLUMNS.map((column, idx) => (
+        <th scope="col" colSpan={column.colspan} key={idx}>
           {column.name}
         </th>
       ))}
