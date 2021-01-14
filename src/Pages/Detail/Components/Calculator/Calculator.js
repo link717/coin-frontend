@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 function Calculator({ currency, symbol, currentPrice }) {
-  const [leftInput, setLeftInput] = useState(null);
-  const [rightInput, setRightInput] = useState(null);
+  const [leftInput, setLeftInput] = useState("");
+  const [rightInput, setRightInput] = useState("");
 
   const checkFraction = (value) => {
     const valueToString = String(value);
