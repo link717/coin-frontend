@@ -43,7 +43,7 @@ function Main() {
       }
     };
     fetchCoinData();
-  }, [currency, count, page]);
+  }, [count, currency, page]);
 
   const handlefetchMore = () => {
     dispatch(setPage(page + 1));
