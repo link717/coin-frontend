@@ -9,7 +9,6 @@ import { setPage } from "../../../../store/modules/CheckPage";
 
 function SelectBox({ view, currency, count }) {
   const dispatch = useDispatch();
-
   const handleOptions = (e) => {
     const category = e.target.name;
     const type = e.target.value;
@@ -18,6 +17,7 @@ function SelectBox({ view, currency, count }) {
       case "view":
         return dispatch(setView(type));
       case "currency":
+        dispatch(setPage(1));
         return dispatch(setCurrency(type));
       case "count":
         dispatch(setPage(1));
