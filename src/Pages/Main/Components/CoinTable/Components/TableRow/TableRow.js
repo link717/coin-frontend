@@ -106,7 +106,7 @@ function TableRow({ data, format }) {
           <Percentage positive={isPositive7d}>
             {fetchData.percentage7d}%
           </Percentage>
-          <td colspan="2">
+          <td colSpan="2">
             {format}
             {fetchData.totalVolume}
           </td>
