@@ -31,17 +31,7 @@ function SelectBox({ view, currency, count }) {
       {OPTIONS.map((option) => (
         <select key={option.id} name={option.category} onChange={handleOptions}>
           {option.subCategories.map((subCategory, idx) => (
-            <option
-              key={idx}
-              value={subCategory.type}
-              selected={
-                view === subCategory.type ||
-                currency === subCategory.type ||
-                count === subCategory.type
-                  ? true
-                  : false
-              }
-            >
+            <option key={idx} value={subCategory.type}>
               {subCategory.name}
             </option>
           ))}
